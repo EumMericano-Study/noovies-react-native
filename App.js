@@ -1,21 +1,20 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-
+import react, { useState } from "react";
+import AppLoading from "expo-app-loading";
+import { Text } from "react-native";
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Hi</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [ready, setReady] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+  const startAsync = () => {};
+  const onFinish = () => setReady(true);
+
+  if (!ready)
+    return (
+      <AppLoading
+        startAsync={startAsync}
+        onFinish={onFinish}
+        onError={console.error}
+      />
+    );
+
+  return <Text>End Loading</Text>;
+}
