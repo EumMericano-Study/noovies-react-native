@@ -4,13 +4,15 @@ import { Text } from "react-native";
 export default function App() {
   const [ready, setReady] = useState(false);
 
-  const startAsync = () => {};
+  const startLoading = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  };
   const onFinish = () => setReady(true);
 
   if (!ready)
     return (
       <AppLoading
-        startAsync={startAsync}
+        startAsync={startLoading}
         onFinish={onFinish}
         onError={console.error}
       />
