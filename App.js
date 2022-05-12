@@ -1,9 +1,11 @@
 import { useState } from "react";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
-import { Text, Image } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
+import Tabs from "./navigation/Tabs";
 
 const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
@@ -40,5 +42,10 @@ export default function App() {
       />
     );
 
-  return <Text>End Loading</Text>;
+  // Navigation을 렌더하기 위해서 사전에 Navigation Container를 렌더해야함
+  return (
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
+  );
 }
