@@ -6,6 +6,7 @@ import { Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
 import Tabs from "./navigation/Tabs";
+import Stack from "./navigation/Stack";
 
 const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
@@ -43,9 +44,11 @@ export default function App() {
     );
 
   // Navigation을 렌더하기 위해서 사전에 Navigation Container를 렌더해야함
+  /* <Tabs /> */
+
   return (
     <NavigationContainer>
-      <Tabs />
+      <Stack />
     </NavigationContainer>
   );
 }
