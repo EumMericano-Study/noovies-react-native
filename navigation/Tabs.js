@@ -7,6 +7,8 @@ import Movies from "../screens/Movies";
 import Tv from "../screens/Tv";
 import Search from "../screens/Search";
 
+import Stack from "./Stack";
+
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -36,7 +38,7 @@ const Tabs = () => {
     >
       <Tab.Screen
         name="Movies"
-        component={Movies}
+        component={Stack}
         //option : 해당 스크린에만 스타일 적용
         options={{
           tabBarIcon: ({ focused, color, size }) => (

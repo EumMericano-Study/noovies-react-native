@@ -44,11 +44,9 @@ export default function App() {
     );
 
   // Navigation을 렌더하기 위해서 사전에 Navigation Container를 렌더해야함
-  /* <Tabs /> */
-
   return (
     <NavigationContainer>
-      <Stack />
+      <Tabs />
     </NavigationContainer>
   );
 }
