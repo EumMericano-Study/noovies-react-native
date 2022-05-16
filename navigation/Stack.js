@@ -23,7 +23,7 @@ const Stack = () => (
   <NativeStack.Navigator
     screenOptions={{
       headerBackTitleVisible: false,
-      animation: "fade_from_bottom",
+      animation: "slide_from_bottom",
     }}
   >
     <NativeStack.Screen name="One" component={ScreenOne} />
