@@ -1,4 +1,5 @@
 import { TouchableOpacity, Text } from "react-native";
+import {} from "styled-components/native";
 
 const Movies = ({ navigation: { navigate } }) => (
   <TouchableOpacity
