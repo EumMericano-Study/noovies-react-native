@@ -1,13 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Text } from "react-native-web";
 import { useColorScheme } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import Movies from "../screens/Movies";
 import Tv from "../screens/Tv";
 import Search from "../screens/Search";
-
-import Stack from "./Stack";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +35,7 @@ const Tabs = () => {
     >
       <Tab.Screen
         name="Movies"
-        component={Stack}
+        component={Movies}
         //option : 해당 스크린에만 스타일 적용
         options={{
           tabBarIcon: ({ focused, color, size }) => (
