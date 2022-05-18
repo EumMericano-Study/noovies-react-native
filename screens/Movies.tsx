@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import styled from "../styled-components";
 //높이를 알기 위해 Dimensions 이용
-import { ActivityIndicator, Dimensions } from "react-native";
+import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
 import Swiper from "react-native-web-swiper";
-import { useEffect, useState } from "react";
+import { BlurView } from "expo-blur";
 import { makeImgPath } from "../utils";
 
 const API_KEY = "78623a14ff23a512a97109e77e1151dc";
@@ -42,7 +43,13 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       >
         {nowPlaying.map((movie) => (
           <View key={movie.id}>
-            <BgImg source={{ uri: makeImgPath(movie.backdrop_path) }} />
+            <BgImg
+              source={{ uri: makeImgPath(movie.backdrop_path) }}
+              style={StyleSheet.absoluteFill}
+            />
+            <BlurView intensity={10} style={StyleSheet.absoluteFill}>
+              <Title>{movie.original_title}</Title>
+            </BlurView>
           </View>
         ))}
       </Swiper>
@@ -65,5 +72,10 @@ const Loader = styled.View`
 `;
 
 const BgImg = styled.Image`
-  flex: 1;
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
 `;
+
+const Title = styled.Text``;
