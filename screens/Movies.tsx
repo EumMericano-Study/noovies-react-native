@@ -3,18 +3,30 @@ import styled from "../styled-components";
 //높이를 알기 위해 Dimensions 이용
 import { ActivityIndicator, Dimensions } from "react-native";
 import Swiper from "react-native-web-swiper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { makeImgPath } from "../utils";
 
 const API_KEY = "78623a14ff23a512a97109e77e1151dc";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const getNowPlaying = () => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1&region=KR`
-    );
+  const [nowPlaying, setNowPlaying] = useState([]);
+
+  const getNowPlaying = async () => {
+    const { results } = await (
+      await fetch(
+        `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1&region=KR`
+      )
+    ).json();
+
+    setNowPlaying(results);
+    setLoading(false);
   };
+
+  useEffect(() => {
+    getNowPlaying();
+  }, []);
 
   return loading ? (
     <Loader>
@@ -28,10 +40,11 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
         controlsEnabled={false}
         containerStyle={{ width: "100%", height: SCREEN_HEIGHT / 3.5 }}
       >
-        <View style={{ backgroundColor: "red" }}></View>
-        <View style={{ backgroundColor: "blue" }}></View>
-        <View style={{ backgroundColor: "white" }}></View>
-        <View style={{ backgroundColor: "brown" }}></View>
+        {nowPlaying.map((movie) => (
+          <View key={movie.id}>
+            <BgImg source={{ uri: makeImgPath(movie.backdrop_path) }} />
+          </View>
+        ))}
       </Swiper>
     </Container>
   );
@@ -49,4 +62,8 @@ const Loader = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+`;
+
+const BgImg = styled.Image`
+  flex: 1;
 `;
