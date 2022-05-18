@@ -32,6 +32,9 @@ const Tabs = () => {
         tabBarActiveTintColor: "red",
         tabBarInactiveTintColor: isDark ? "white" : "black",
       }}
+      sceneContainerStyle={{
+        backgroundColor: isDark ? "#1e272e" : "white",
+      }}
     >
       <Tab.Screen
         name="Movies"
