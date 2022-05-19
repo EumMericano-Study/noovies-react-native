@@ -1,11 +1,12 @@
 import styled from "styled-components/native";
+import { makeImgPath } from "../utils";
 
 interface Props {
   path: string;
 }
 
 const Poster: React.FC<Props> = ({ path }: Props) => (
-  <Image source={{ uri: path }} />
+  <Image source={{ uri: makeImgPath(path) }} />
 );
 
 export default Poster;

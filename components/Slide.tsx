@@ -34,7 +34,7 @@ const Slide: React.FC<Props> = ({
         style={StyleSheet.absoluteFill}
       >
         <Wrapper>
-          <Poster path={makeImgPath(posterPath)} />
+          <Poster path={posterPath} />
           <Column>
             <Title>{originalTitle}</Title>
             {voteAverage !== 0 && <Votes>⭐️ {voteAverage} / 10</Votes>}
@@ -85,3 +85,5 @@ const OverView = styled.Text`
 const Votes = styled(OverView)`
   font-size: 12px;
 `;
+
+const ListTitle = styled.Text``;
