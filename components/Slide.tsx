@@ -85,5 +85,3 @@ const OverView = styled.Text`
 const Votes = styled(OverView)`
   font-size: 12px;
 `;
-
-const ListTitle = styled.Text``;

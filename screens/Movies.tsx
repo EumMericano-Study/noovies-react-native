@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import styled from "../styled-components";
+import Poster from "../components/Poster";
+
 //높이를 알기 위해 Dimensions 이용
 import {
   ActivityIndicator,
@@ -68,12 +70,17 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   ) : (
     <Container>
       <Swiper
+        horizontal
         loop
         autoplay
         autoplayTimeout={3.5}
         showsButtons={false}
         showsPagination={false}
-        containerStyle={{ width: "100%", height: SCREEN_HEIGHT / 3.5 }}
+        containerStyle={{
+          width: "100%",
+          height: SCREEN_HEIGHT / 3.5,
+          marginBottom: 30,
+        }}
       >
         {nowPlaying.map((movie) => (
           <Slide
@@ -86,6 +93,18 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           />
         ))}
       </Swiper>
+      <ListTitle>Trending Movies</ListTitle>
+      <TrendingScroll
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 30 }}
+      >
+        {trending.map((movie) => (
+          <Movie key={movie.id}>
+            <Poster path={movie.poster_path} />
+          </Movie>
+        ))}
+      </TrendingScroll>
     </Container>
   );
 };
@@ -98,4 +117,20 @@ const Loader = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+`;
+
+const ListTitle = styled.Text`
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+
+  margin-left: 30px;
+`;
+
+const TrendingScroll = styled.ScrollView`
+  margin-top: 20px;
+`;
+
+const Movie = styled.View`
+  margin-right: 15px;
 `;
