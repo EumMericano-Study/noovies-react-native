@@ -97,11 +97,18 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       <TrendingScroll
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 30 }}
+        contentContainerStyle={{ paddingLeft: 30 }}
       >
         {trending.map((movie) => (
           <Movie key={movie.id}>
             <Poster path={movie.poster_path} />
+            <Title>
+              {movie.original_title.slice(0, 12)}
+              {movie.original_title.length > 12 && "..."}
+            </Title>
+            {movie.vote_average !== 0 && (
+              <Votes>⭐️ {movie.vote_average} / 10</Votes>
+            )}
           </Movie>
         ))}
       </TrendingScroll>
@@ -133,4 +140,16 @@ const TrendingScroll = styled.ScrollView`
 
 const Movie = styled.View`
   margin-right: 15px;
+`;
+
+const Title = styled.Text`
+  color: ${(props) => props.theme.textColor};
+  font-weight: 600;
+  margin-top: 7px;
+  margin-bottom: 5px;
+`;
+
+const Votes = styled.Text`
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
 `;
