@@ -1,6 +1,7 @@
 import { BlurView } from "expo-blur";
 import { StyleSheet, useColorScheme, View } from "react-native";
 import styled from "styled-components/native";
+import Poster from "../components/Poster";
 import { makeImgPath } from "../utils";
 
 interface Props {
@@ -33,7 +34,7 @@ const Slide: React.FC<Props> = ({
         style={StyleSheet.absoluteFill}
       >
         <Wrapper>
-          <Poster source={{ uri: makeImgPath(posterPath) }} />
+          <Poster path={makeImgPath(posterPath)} />
           <Column>
             <Title>{originalTitle}</Title>
             {voteAverage !== 0 && <Votes>⭐️ {voteAverage} / 10</Votes>}
@@ -62,12 +63,6 @@ const Wrapper = styled.View`
   height: 100%;
   justify-content: center;
   align-items: center;
-`;
-
-const Poster = styled.Image`
-  width: 100px;
-  height: 160px;
-  border-radius: 5px;
 `;
 
 const Column = styled.View`
