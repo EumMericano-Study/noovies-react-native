@@ -93,25 +93,43 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           />
         ))}
       </Swiper>
-      <ListTitle>Trending Movies</ListTitle>
-      <TrendingScroll
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingLeft: 30 }}
-      >
-        {trending.map((movie) => (
-          <Movie key={movie.id}>
-            <Poster path={movie.poster_path} />
-            <Title>
-              {movie.original_title.slice(0, 12)}
-              {movie.original_title.length > 12 && "..."}
-            </Title>
-            {movie.vote_average !== 0 && (
-              <Votes>⭐️ {movie.vote_average} / 10</Votes>
-            )}
-          </Movie>
-        ))}
-      </TrendingScroll>
+      <ListContianer>
+        <ListTitle>Trending Movies</ListTitle>
+        <TrendingScroll
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingLeft: 30 }}
+        >
+          {trending.map((movie) => (
+            <Movie key={movie.id}>
+              <Poster path={movie.poster_path} />
+              <Title>
+                {movie.original_title.slice(0, 12)}
+                {movie.original_title.length > 12 && "..."}
+              </Title>
+              <Votes>
+                {movie.vote_average > 0
+                  ? `⭐️ ${movie.vote_average} / 10`
+                  : "Coming soon"}
+              </Votes>
+            </Movie>
+          ))}
+        </TrendingScroll>
+      </ListContianer>
+      <ListTitle>Coming soon</ListTitle>
+      {upcoming.map((movie) => (
+        <HorizontalMovie key={movie.id}>
+          <Poster path={movie.poster_path} />
+          <HorizontalColumn>
+            <Title>{movie.original_title}</Title>
+            <Overview>
+              {movie.overview !== "" && movie.overview.length > 140
+                ? movie.overview.slice(0, 140) + "..."
+                : movie.overview}
+            </Overview>
+          </HorizontalColumn>
+        </HorizontalMovie>
+      ))}
     </Container>
   );
 };
@@ -152,4 +170,25 @@ const Title = styled.Text`
 const Votes = styled.Text`
   color: rgba(255, 255, 255, 0.8);
   font-size: 10px;
+`;
+
+const ListContianer = styled.View`
+  margin-bottom: 40px;
+`;
+
+const HorizontalMovie = styled.View`
+  flex-direction: row;
+  padding: 0px 39px;
+  margin-bottom: 30px;
+`;
+
+const HorizontalColumn = styled.View`
+  width: 80%;
+  margin-left: 20px;
+`;
+
+const Overview = styled.Text`
+  width: 80%;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 10px;
 `;
