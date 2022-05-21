@@ -1,5 +1,6 @@
 import styled from "../styled-components";
 import Poster from "./Poster";
+import Votes from "./Votes";
 
 interface Props {
   posterPath: string;
@@ -15,9 +16,7 @@ const VMedia = ({ posterPath, originalTitle, voteAverage }: Props) => {
         {originalTitle.slice(0, 12)}
         {originalTitle.length > 12 && "..."}
       </Title>
-      <Votes>
-        {voteAverage > 0 ? `⭐️ ${voteAverage} / 10` : "Coming soon"}
-      </Votes>
+      <Votes voteAverage={voteAverage} />
     </Container>
   );
 };
@@ -33,9 +32,4 @@ const Title = styled.Text`
   font-weight: 600;
   margin-top: 7px;
   margin-bottom: 5px;
-`;
-
-const Votes = styled.Text`
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 10px;
 `;
