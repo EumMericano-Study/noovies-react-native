@@ -116,15 +116,22 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           ))}
         </TrendingScroll>
       </ListContianer>
-      <ListTitle>Coming soon</ListTitle>
+      <ComingSoonTitle>Coming soon</ComingSoonTitle>
       {upcoming.map((movie) => (
         <HorizontalMovie key={movie.id}>
           <Poster path={movie.poster_path} />
           <HorizontalColumn>
             <Title>{movie.original_title}</Title>
+            <Release>
+              {new Date(movie.release_date).toLocaleDateString("ko", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </Release>
             <Overview>
-              {movie.overview !== "" && movie.overview.length > 140
-                ? movie.overview.slice(0, 140) + "..."
+              {movie.overview !== "" && movie.overview.length > 100
+                ? movie.overview.slice(0, 100).trim() + "..."
                 : movie.overview}
             </Overview>
           </HorizontalColumn>
@@ -191,4 +198,14 @@ const Overview = styled.Text`
   width: 80%;
   color: rgba(255, 255, 255, 0.7);
   margin-top: 10px;
+`;
+
+const Release = styled.Text`
+  color: white;
+  font-size: 12px;
+  margin-vertical: 10px;
+`;
+
+const ComingSoonTitle = styled(ListTitle)`
+  margin-bottom: 20px;
 `;
