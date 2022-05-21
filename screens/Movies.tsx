@@ -7,6 +7,7 @@ import Poster from "../components/Poster";
 import { ActivityIndicator, Dimensions, RefreshControl } from "react-native";
 import Swiper from "react-native-swiper";
 import Slide from "../components/Slide";
+import VMedia from "../components/VMedia";
 
 const API_KEY = "78623a14ff23a512a97109e77e1151dc";
 
@@ -91,7 +92,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       >
         {nowPlaying.map((movie) => (
           <Slide
-            key={movie.id}
+            key={`nowPlaying-${movie.id}`}
             backdropPath={movie.backdrop_path}
             posterPath={movie.poster_path}
             voteAverage={movie.vote_average}
@@ -108,18 +109,12 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           contentContainerStyle={{ paddingLeft: 30 }}
         >
           {trending.map((movie) => (
-            <Movie key={movie.id}>
-              <Poster path={movie.poster_path} />
-              <Title>
-                {movie.original_title.slice(0, 12)}
-                {movie.original_title.length > 12 && "..."}
-              </Title>
-              <Votes>
-                {movie.vote_average > 0
-                  ? `⭐️ ${movie.vote_average} / 10`
-                  : "Coming soon"}
-              </Votes>
-            </Movie>
+            <VMedia
+              key={`trending-${movie.id}`}
+              posterPath={movie.poster_path}
+              originalTitle={movie.original_title}
+              voteAverage={movie.vote_average}
+            />
           ))}
         </TrendingScroll>
       </ListContianer>
@@ -170,20 +165,11 @@ const TrendingScroll = styled.ScrollView`
   margin-top: 20px;
 `;
 
-const Movie = styled.View`
-  margin-right: 15px;
-`;
-
 const Title = styled.Text`
   color: ${(props) => props.theme.textColor};
   font-weight: 600;
   margin-top: 7px;
   margin-bottom: 5px;
-`;
-
-const Votes = styled.Text`
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 10px;
 `;
 
 const ListContianer = styled.View`
