@@ -4,19 +4,16 @@ import styled from "../styled-components";
 import Poster from "../components/Poster";
 
 //높이를 알기 위해 Dimensions 이용
-import {
-  ActivityIndicator,
-  Dimensions,
-  StyleSheet,
-  useColorScheme,
-} from "react-native";
+import { ActivityIndicator, Dimensions, RefreshControl } from "react-native";
 import Swiper from "react-native-swiper";
 import Slide from "../components/Slide";
 
 const API_KEY = "78623a14ff23a512a97109e77e1151dc";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [nowPlaying, setNowPlaying] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
@@ -55,6 +52,12 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
     await Promise.all([getTrending(), getUpcoming(), getNowPlaying()]);
     setLoading(false);
   };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await getData();
+    setRefreshing(false);
+  };
   useEffect(() => {
     getData();
   }, []);
@@ -68,7 +71,11 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       <ActivityIndicator />
     </Loader>
   ) : (
-    <Container>
+    <Container
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <Swiper
         horizontal
         loop
