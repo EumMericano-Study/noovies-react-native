@@ -47,7 +47,6 @@ export default HMedia;
 const Container = styled.View`
   flex-direction: row;
   padding: 0px 39px;
-  margin-bottom: 30px;
 `;
 
 const HorizontalColumn = styled.View`
