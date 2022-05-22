@@ -15,6 +15,7 @@ const Tabs = () => {
     <Tab.Navigator
       //screenOption : 네비게이션의 모든 헤더에 스타일 적용
       screenOptions={{
+        unmountOnBlur: true,
         headerStyle: {
           backgroundColor: isDark ? "black" : "white",
         },
