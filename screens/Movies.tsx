@@ -22,22 +22,33 @@ import { moviesApi } from "../api";
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-  const { isLoading: nowPlayingLoading, data: nowPlaying } = useQuery(
-    "nowPlaying",
-    moviesApi.nowPlaying
-  );
-  const { isLoading: trendingLoading, data: trending } = useQuery(
-    "trending",
-    moviesApi.trending
-  );
-  const { isLoading: upcomingLoading, data: upcoming } = useQuery(
-    "upcoming",
-    moviesApi.upcoming
-  );
+  const {
+    isLoading: nowPlayingLoading,
+    data: nowPlayingData,
+    refetch: nowPlayingRefetch,
+    isRefetching: isNowPlayingRefetching,
+  } = useQuery("nowPlaying", moviesApi.nowPlaying);
+  const {
+    isLoading: trendingLoading,
+    data: trendingData,
+    refetch: trendingRefetch,
+    isRefetching: isTrendingRefetching,
+  } = useQuery("trending", moviesApi.trending);
+  const {
+    isLoading: upcomingLoading,
+    data: upcomingData,
+    refetch: upcomingRefetch,
+    isRefetching: isUpcomingRefetching,
+  } = useQuery("upcoming", moviesApi.upcoming);
 
   const isLoading = nowPlayingLoading || trendingLoading || upcomingLoading;
-  const onRefresh = async () => {};
+  const refreshing =
+    isNowPlayingRefetching || isTrendingRefetching || isUpcomingRefetching;
+  const onRefresh = async () => {
+    nowPlayingRefetch();
+    trendingRefetch();
+    upcomingRefetch();
+  };
 
   return isLoading ? (
     <Loader>
@@ -62,7 +73,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
               marginBottom: 30,
             }}
           >
-            {nowPlaying.results.map((movie) => (
+            {nowPlayingData.results.map((movie) => (
               <Slide
                 key={`nowPlaying-${movie.id}`}
                 backdropPath={movie.backdrop_path}
@@ -80,7 +91,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ paddingLeft: 30 }}
               ItemSeparatorComponent={VSeparator}
-              data={trending.results}
+              data={trendingData.results}
               keyExtractor={keyExtractor}
               renderItem={renderVMedia}
             />
@@ -89,7 +100,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
         </>
       }
       ItemSeparatorComponent={HSeparator}
-      data={upcoming.results}
+      data={upcomingData.results}
       keyExtractor={keyExtractor}
       renderItem={renderHMedia}
     />

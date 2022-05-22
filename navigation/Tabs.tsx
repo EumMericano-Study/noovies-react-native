@@ -15,6 +15,7 @@ const Tabs = () => {
     <Tab.Navigator
       //screenOption : 네비게이션의 모든 헤더에 스타일 적용
       screenOptions={{
+        // 네비게이션의 다른 스크린에 갔을때 이전 스크린의 마운트를 제거
         unmountOnBlur: true,
         headerStyle: {
           backgroundColor: isDark ? "black" : "white",
