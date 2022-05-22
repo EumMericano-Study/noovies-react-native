@@ -6,8 +6,9 @@ import styled from "../styled-components";
 import { ActivityIndicator, Dimensions, FlatList, View } from "react-native";
 import Swiper from "react-native-swiper";
 import Slide from "../components/Slide";
-import VMedia from "../components/VMedia";
-import HMedia from "../components/HMedia";
+import { renderVMedia } from "../components/VMedia";
+import { renderHMedia } from "../components/HMedia";
+import { HSeparator, VSeparator } from "../components/Separators";
 
 const API_KEY = "78623a14ff23a512a97109e77e1151dc";
 
@@ -107,32 +108,19 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ paddingLeft: 30 }}
-              ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
+              ItemSeparatorComponent={() => <VSeparator />}
               data={trending}
               keyExtractor={(item) => `${item.id}`}
-              renderItem={({ item }) => (
-                <VMedia
-                  posterPath={item.poster_path}
-                  originalTitle={item.original_title}
-                  voteAverage={item.vote_average}
-                />
-              )}
+              renderItem={renderVMedia}
             />
           </ListContianer>
           <ComingSoonTitle>Coming soon</ComingSoonTitle>
         </>
       }
-      ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
+      ItemSeparatorComponent={() => <HSeparator />}
       data={upcoming}
       keyExtractor={(item) => `${item.id}`}
-      renderItem={({ item }) => (
-        <HMedia
-          posterPath={item.poster_path}
-          originalTitle={item.original_title}
-          releaseDate={item.release_date}
-          overview={item.overview}
-        />
-      )}
+      renderItem={renderHMedia}
     />
   );
 };

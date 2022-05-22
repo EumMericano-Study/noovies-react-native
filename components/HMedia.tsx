@@ -44,6 +44,15 @@ const HMedia = ({
 
 export default HMedia;
 
+export const renderHMedia = ({ item }) => (
+  <HMedia
+    posterPath={item.poster_path}
+    originalTitle={item.original_title}
+    releaseDate={item.release_date}
+    overview={item.overview}
+  />
+);
+
 const Container = styled.View`
   flex-direction: row;
   padding: 0px 39px;

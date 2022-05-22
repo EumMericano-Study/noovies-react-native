@@ -23,6 +23,14 @@ const VMedia = ({ posterPath, originalTitle, voteAverage }: Props) => {
 
 export default VMedia;
 
+export const renderVMedia = ({ item }) => (
+  <VMedia
+    posterPath={item.poster_path}
+    originalTitle={item.original_title}
+    voteAverage={item.vote_average}
+  />
+);
+
 const Container = styled.View`
   align-items: center;
 `;
