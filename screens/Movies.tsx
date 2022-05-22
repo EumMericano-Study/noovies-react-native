@@ -16,38 +16,36 @@ import {
   Loader,
   TrendingScroll,
 } from "./Movies.styles";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { moviesApi } from "../api";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
+  const queryClient = useQueryClient();
+
   const {
     isLoading: nowPlayingLoading,
     data: nowPlayingData,
-    refetch: nowPlayingRefetch,
     isRefetching: isNowPlayingRefetching,
-  } = useQuery("nowPlaying", moviesApi.nowPlaying);
+  } = useQuery(["movies", "nowPlaying"], moviesApi.nowPlaying);
   const {
     isLoading: trendingLoading,
     data: trendingData,
-    refetch: trendingRefetch,
     isRefetching: isTrendingRefetching,
-  } = useQuery("trending", moviesApi.trending);
+  } = useQuery(["movies", "trending"], moviesApi.trending);
   const {
     isLoading: upcomingLoading,
     data: upcomingData,
-    refetch: upcomingRefetch,
     isRefetching: isUpcomingRefetching,
-  } = useQuery("upcoming", moviesApi.upcoming);
+  } = useQuery(["movies", "upcoming"], moviesApi.upcoming);
 
   const isLoading = nowPlayingLoading || trendingLoading || upcomingLoading;
   const refreshing =
     isNowPlayingRefetching || isTrendingRefetching || isUpcomingRefetching;
+
   const onRefresh = async () => {
-    nowPlayingRefetch();
-    trendingRefetch();
-    upcomingRefetch();
+    queryClient.refetchQueries(["movies"]);
   };
 
   return isLoading ? (
