@@ -3,7 +3,12 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import styled from "../styled-components";
 
 //높이를 알기 위해 Dimensions 이용
-import { ActivityIndicator, Dimensions, RefreshControl } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  RefreshControl,
+  View,
+} from "react-native";
 import Swiper from "react-native-swiper";
 import Slide from "../components/Slide";
 import VMedia from "../components/VMedia";
@@ -107,16 +112,17 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingLeft: 30 }}
-        >
-          {trending.map((movie) => (
+          ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
+          keyExtractor={(item) => `${item.id}`}
+          data={trending}
+          renderItem={({ item }) => (
             <VMedia
-              key={`trending-${movie.id}`}
-              posterPath={movie.poster_path}
-              originalTitle={movie.original_title}
-              voteAverage={movie.vote_average}
+              posterPath={item.poster_path}
+              originalTitle={item.original_title}
+              voteAverage={item.vote_average}
             />
-          ))}
-        </TrendingScroll>
+          )}
+        />
       </ListContianer>
       <ComingSoonTitle>Coming soon</ComingSoonTitle>
       {upcoming.map((movie) => (
@@ -150,7 +156,7 @@ const ListTitle = styled.Text`
   margin-left: 30px;
 `;
 
-const TrendingScroll = styled.ScrollView`
+const TrendingScroll = styled.FlatList`
   margin-top: 20px;
 `;
 

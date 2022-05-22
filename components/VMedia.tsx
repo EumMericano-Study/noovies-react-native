@@ -24,7 +24,7 @@ const VMedia = ({ posterPath, originalTitle, voteAverage }: Props) => {
 export default VMedia;
 
 const Container = styled.View`
-  margin-right: 15px;
+  align-items: center;
 `;
 
 const Title = styled.Text`
