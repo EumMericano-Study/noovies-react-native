@@ -1,11 +1,13 @@
 import styled from "../styled-components";
 import Poster from "./Poster";
+import Votes from "./Votes";
 
 interface Props {
   posterPath: string;
   originalTitle: string;
-  releaseDate: string;
   overview: string;
+  releaseDate?: string;
+  voteAverage?: number;
 }
 
 const HMedia = ({
@@ -13,19 +15,23 @@ const HMedia = ({
   originalTitle,
   releaseDate,
   overview,
+  voteAverage,
 }: Props) => {
   return (
     <Container>
       <Poster path={posterPath} />
       <HorizontalColumn>
         <Title>{originalTitle}</Title>
-        <Release>
-          {new Date(releaseDate).toLocaleDateString("ko", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </Release>
+        {releaseDate && (
+          <Release>
+            {new Date(releaseDate).toLocaleDateString("ko", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </Release>
+        )}
+        {voteAverage && <Votes voteAverage={voteAverage} />}
         <Overview>
           {overview !== "" && overview.length > 100
             ? overview.slice(0, 100).trim() + "..."
