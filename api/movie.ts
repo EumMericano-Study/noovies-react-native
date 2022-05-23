@@ -1,5 +1,5 @@
-const API_KEY = "78623a14ff23a512a97109e77e1151dc";
-const BASE_URL = "https://api.themoviedb.org/3";
+import { API_KEY, BASE_URL } from "../constants";
+
 export interface Movie {
   adult: boolean;
   backdrop_path: string | null;
