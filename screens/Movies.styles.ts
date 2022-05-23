@@ -1,11 +1,5 @@
 import styled from "../styled-components";
 
-export const Loader = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const ListTitle = styled.Text`
   color: white;
   font-size: 18px;

@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 //높이를 알기 위해 Dimensions 이용
-import { ActivityIndicator, Dimensions, FlatList } from "react-native";
+import { Dimensions, FlatList } from "react-native";
 import Swiper from "react-native-swiper";
 import Slide from "../components/Slide";
 import { renderVMedia } from "../components/VMedia";
@@ -13,12 +12,12 @@ import {
   ComingSoonTitle,
   ListContianer,
   ListTitle,
-  Loader,
   TrendingScroll,
 } from "./Movies.styles";
 import { useQuery, useQueryClient } from "react-query";
 import { moviesApi } from "../api";
 import { MovieResponse } from "../api/movie";
+import Loader from "../components/Loader";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -50,9 +49,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   };
 
   return isLoading ? (
-    <Loader>
-      <ActivityIndicator />
-    </Loader>
+    <Loader />
   ) : (
     upcomingData && (
       <FlatList
