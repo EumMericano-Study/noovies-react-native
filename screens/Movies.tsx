@@ -1,24 +1,18 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
-//높이를 알기 위해 Dimensions 이용
 import { Dimensions, FlatList } from "react-native";
 import Swiper from "react-native-swiper";
 import Slide from "../components/Slide";
-import { renderVMedia } from "../components/VMedia";
 import { renderHMedia } from "../components/HMedia";
-import { HSeparator, VSeparator } from "../components/Separators";
+import { HSeparator } from "../components/Separators";
 import { keyExtractor } from "../utils";
-import {
-  ComingSoonTitle,
-  ListContianer,
-  ListTitle,
-  TrendingScroll,
-} from "./Movies.styles";
+import { ComingSoonTitle } from "./Movies.styles";
 import { useQuery, useQueryClient } from "react-query";
 import { moviesApi } from "../api";
 import { MovieResponse } from "../api/movie";
 import Loader from "../components/Loader";
+import HList from "../components/HList";
 
+//높이를 알기 위해 Dimensions 이용
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
@@ -81,20 +75,9 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
                 />
               ))}
             </Swiper>
-            <ListContianer>
-              <ListTitle>Trending Movies</ListTitle>
-              {trendingData && (
-                <TrendingScroll
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={{ paddingLeft: 30 }}
-                  ItemSeparatorComponent={VSeparator}
-                  data={trendingData.results}
-                  keyExtractor={keyExtractor}
-                  renderItem={renderVMedia}
-                />
-              )}
-            </ListContianer>
+            {trendingData && (
+              <HList title="Treanding Movies" data={trendingData.results} />
+            )}
             <ComingSoonTitle>Coming soon</ComingSoonTitle>
           </>
         }

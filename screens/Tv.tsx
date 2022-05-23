@@ -1,10 +1,8 @@
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { ScrollView } from "react-native";
 import { useQuery } from "react-query";
 import { tvApi } from "../api";
 import HList from "../components/HList";
 import Loader from "../components/Loader";
-import VMedia from "../components/VMedia";
-import { VSeparator } from "../components/Separators";
 
 const Tv = () => {
   const { isLoading: todayLoading, data: todayData } = useQuery(
