@@ -17,6 +17,7 @@ const HList = ({ title, data }: Props) => (
       contentContainerStyle={{ paddingHorizontal: 30 }}
       ItemSeparatorComponent={VSeparator}
       data={data}
+      keyExtractor={(item) => `${item.id}`}
       renderItem={({ item }) => (
         <VMedia
           originalTitle={item.original_title ?? item.original_name}
